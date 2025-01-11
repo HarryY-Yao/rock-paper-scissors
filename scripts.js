@@ -21,13 +21,6 @@ function getHumanChoice() {
     return choice.toLowerCase();
 }
 
-
-
-
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
 function playGame() {
     
     let humanScore = 0;
