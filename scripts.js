@@ -4,7 +4,13 @@ const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
 
 const announcer = document.createElement("div");
+const score = document.createElement("p");
+const result = document.createElement("p");
+
 container.appendChild(announcer);
+announcer.appendChild(score);
+announcer.appendChild(result);
+
 
 
 let humanScore = 0;
@@ -33,57 +39,56 @@ function getHumanChoice(choice) {
 }
 
 function playRound(humanChoice, computerChoice) {
+    if (humanScore == 5 || computerScore == 5) {
+        humanScore = 0;
+        computerScore = 0;
+    }
+    
+
     if (humanChoice == "scissors") {
         if (computerChoice == "scissors") {
-            announcer.textContent = ("It's a tie! Scissors negates scissors");
+            result.textContent = ("It's a tie! Scissors negates scissors");
         } else if (computerChoice == "paper") {
-            announcer.textContent = ("You win! Scissors beats paper");
+            result.textContent = ("You win! Scissors beats paper");
             humanScore++;
         } else {
-            announcer.textContent = ("You lose! Rock beats scissors");
+            result.textContent = ("You lose! Rock beats scissors");
             computerScore++;
         }
     } else if (humanChoice == "paper") {
         if (computerChoice == "paper") {
-            announcer.textContent = ("It's a tie! Paper negates paper");
+            result.textContent = ("It's a tie! Paper negates paper");
         } else if (computerChoice == "rock") {
-            announcer.textContent = ("You win! paper beats rock");
+            result.textContent = ("You win! paper beats rock");
             humanScore++;
         } else {
-            announcer.textContent = ("You lose! Scissors beats paper");
+            result.textContent = ("You lose! Scissors beats paper");
             computerScore++;
         }
     } else if (humanChoice == "rock") {
         if (computerChoice == "rock") {
-            announcer.textContent = ("It's a tie! Rock negates rock");
+            result.textContent = ("It's a tie! Rock negates rock");
         } else if (computerChoice == "scissors") {
-            announcer.textContent = ("You win! Rock beats scissors");
+            result.textContent = ("You win! Rock beats scissors");
             humanScore++;
         } else {
-            announcer.textContent = ("You lose! Paper beats rock");
+            result.textContent = ("You lose! Paper beats rock");
             computerScore++;
         }
         
     } else {
-        announcer.textContent = ("Invalid input");
+        result.textContent = ("Invalid input");
     }
-    announcer.textContent = ("You:", humanScore, "Computer:", computerScore);
+    score.textContent = (`You: ${humanScore}  |  Computer: ${computerScore}`);
+
+    if (humanScore == 5) {
+        result.textContent = "You Win!"
+    } else if (computerScore == 5) {
+        result.textContent = "You lose!"
+    }
 }
 
 
-function playGame() {
-    
-    
-    if (humanScore == computerScore) {
-        announcer.textContent = ("You tied!");
-    } else if (humanScore > computerScore) {
-        announcer.textContent = ("You won!");
-    } else if (humanScore < computerScore) {
-        announcer.textContent = ("You lost!");
-    }
-    
-    
-}
 
 rock.addEventListener("click", () => {
     playRound(getHumanChoice("rock"), getComputerChoice());
